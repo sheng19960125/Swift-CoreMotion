@@ -31,6 +31,7 @@ class ViewController: UIViewController {
         
         imageView.image = UIImage(named: "image.jpg")!
         
+        //確認手機是否有支持
         guard manager.isAccelerometerAvailable else {
             return
         }
