@@ -9,7 +9,7 @@ CMMotionManager用在啟動管理運動感測檢測到的數據服務，次物�
   3.磁力儀基本上可以稱作為指南針，相對於地球磁場。  
   4.除了可以單獨呼叫外，我們更可以統一上述幾種傳感器，整合成自己所需的數據。  
 
-## example
+## Example  CMMotionManager
 ```
 import CoreMotion`  
 import UiKit
@@ -41,10 +41,7 @@ class ViewController: UIViewController {
     }
     
 
-    /*
-     * 此部分結合陀螺儀/加速度數據的其他非重力部分來添加新的交互方法，
-     * 設定瞬間0.01Ｓ的運動狀態捕捉，偏移量。
-     */
+  
     func myDeviceMotion(){
         manager.deviceMotionUpdateInterval = 0.05
         manager.startDeviceMotionUpdates(to: OperationQueue.current!) { (data, error) in
@@ -58,6 +55,10 @@ class ViewController: UIViewController {
         }
     }
     
+    /*
+     * 此部分結合陀螺儀/加速度數據的其他非重力部分來添加新的交互方法，
+     * 設定瞬間0.01Ｓ的運動狀態捕捉，偏移量。
+     */
     func myDeviceMotionPop(){
         manager2.deviceMotionUpdateInterval = 0.01
         manager2.startDeviceMotionUpdates(to: OperationQueue.current!) {
@@ -98,6 +99,22 @@ class ViewController: UIViewController {
         self.present(alertController, animated: true, completion: nil)
     }
 }
-
-
+```
+## 補充
+Swift 內建的Api接口可直接調用晃動的動作，例如Wechat裡面的搖一搖。
+```
+    override func motionBegan(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
+        print("開始搖晃")
+    }
+    
+    override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
+        print("搖晃結束")
+        if(event?.subtype == UIEvent.EventSubtype.motionShake){
+            print("do something")
+        }
+    }
+    
+    override func motionCancelled(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
+        print("搖晃意外終止")
+    }
 ```
