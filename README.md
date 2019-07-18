@@ -31,7 +31,8 @@ class ViewController: UIViewController {
         
         imageView.image = UIImage(named: "image.jpg")!
         
-        //確認手機是否有支持
+        //確認手機是否有支持加速度計
+        //陀螺儀 isGyroAvailable
         guard manager.isAccelerometerAvailable else {
             return
         }
@@ -45,6 +46,7 @@ class ViewController: UIViewController {
   
     func myDeviceMotion(){
         manager.deviceMotionUpdateInterval = 0.05
+        //OperationQueue.current返回當前操作類
         manager.startDeviceMotionUpdates(to: OperationQueue.current!) { (data, error) in
             
             guard let data = data , error == nil else {
@@ -100,6 +102,9 @@ class ViewController: UIViewController {
         self.present(alertController, animated: true, completion: nil)
     }
 }
+
+//停止更新數據
+  manager.stopAccelerometerUpdates()
 ```
 ## 補充
 Swift 內建的Api接口可直接調用晃動的動作，例如Wechat裡面的搖一搖。
